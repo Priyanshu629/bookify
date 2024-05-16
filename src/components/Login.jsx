@@ -12,12 +12,17 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const handelLogin = (e) => {
+    setEmail("");
+    setPassword("");
     e.preventDefault();
     firebase
       .signinUserWithEmailAndPassword(email, password)
       .then((response) => {
-        alert("Login Successfull !! Press 'OK' ")
-        navigate("/home");
+        alert("Login Successfull !! Press 'OK' ");
+        
+        setTimeout(() => {
+          navigate("/home");
+        }, 2000);
       })
       .catch((error) => {
         toast.error(

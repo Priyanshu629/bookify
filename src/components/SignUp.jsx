@@ -14,6 +14,8 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const handelSubmit = (e) => {
+    setEmail("");
+    setPassword("");
     e.preventDefault();
     firebase
       .signupUserWithEmailAndPassword(email, password)
@@ -21,8 +23,7 @@ const SignUp = () => {
         const user = response.user;
         updateProfile(user, { displayName: name })
           .then((res) => {
-             alert("Sign Up Successfull !! Press 'Ok' ")
-             navigate("/home");
+            navigate("/home");
           })
           .catch((error) => {
             return error;

@@ -69,7 +69,7 @@ export const FirebaseProvider = ({ children }) => {
     return signOut(firebaseAuth);
   };
   const deleteAccount = () => {
-    toast.error("Account delete successfully");
+    
     return deleteUser(firebaseAuth.currentUser);
   };
 

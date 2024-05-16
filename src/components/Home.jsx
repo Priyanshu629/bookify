@@ -13,7 +13,10 @@ const Home = () => {
     firebase
       .deleteAccount()
       .then(() => {
-        console.log("User delete");
+        alert("Account Deleted Successfull !! Press 'Ok' ");
+        setTimeout(() => {
+          navigate("/home");
+        }, 1000);
         navigate("/");
       })
       .catch((error) => {
