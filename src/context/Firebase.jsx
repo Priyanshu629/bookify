@@ -9,7 +9,9 @@ import {
   signInWithPopup,
   onAuthStateChanged,
   signOut,
+  deleteUser,
 } from "firebase/auth";
+import toast from "react-hot-toast";
 
 const FirebaseContext = createContext(null);
 
@@ -22,8 +24,6 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-
-
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 const firebaseAuth = getAuth(firebaseApp);
@@ -34,12 +34,18 @@ export const useFirebase = () => useContext(FirebaseContext);
 export const FirebaseProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoggedin, setIsLoggedIn] = useState(false);
+  // const []
+  
 
   const signupUserWithEmailAndPassword = (email, password) => {
+    
+
     return createUserWithEmailAndPassword(firebaseAuth, email, password);
   };
 
   const signinUserWithEmailAndPassword = (email, password) => {
+    
+      
     return signInWithEmailAndPassword(firebaseAuth, email, password);
   };
 
@@ -48,16 +54,23 @@ export const FirebaseProvider = ({ children }) => {
       if (user) {
         setUser(user);
         setIsLoggedIn(true);
+        
       } else {
         setUser(null);
         setIsLoggedIn(false);
+        
       }
     });
   }, []);
 
   const signinWithGoogle = () => signInWithPopup(firebaseAuth, googleProvider);
   const logOut = () => {
+    toast.success("Logged out successfully");
     return signOut(firebaseAuth);
+  };
+  const deleteAccount = () => {
+    toast.error("Account delete successfully");
+    return deleteUser(firebaseAuth.currentUser);
   };
 
   return (
@@ -71,6 +84,8 @@ export const FirebaseProvider = ({ children }) => {
         logOut,
         isLoggedin,
         user,
+        deleteAccount,
+        
       }}
     >
       {children}

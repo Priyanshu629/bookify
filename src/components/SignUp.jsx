@@ -21,15 +21,15 @@ const SignUp = () => {
         const user = response.user;
         updateProfile(user, { displayName: name })
           .then((res) => {
-            navigate('/home')
+             alert("Sign Up Successfull !! Press 'Ok' ")
+             navigate("/home");
           })
           .catch((error) => {
-            return error
+            return error;
           });
       })
       .catch((error) => {
         toast.error(`${error.code.toString().split("/")[1]}`);
-        
       });
   };
 
@@ -48,6 +48,7 @@ const SignUp = () => {
             type="text"
             placeholder="Enter Full Name"
             onChange={(e) => setName(e.target.value)}
+            required
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -56,6 +57,7 @@ const SignUp = () => {
             type="email"
             placeholder="Enter email"
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
         </Form.Group>
 
@@ -65,6 +67,7 @@ const SignUp = () => {
             type="password"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
         </Form.Group>
 

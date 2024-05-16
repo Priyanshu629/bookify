@@ -11,12 +11,12 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-
   const handelLogin = (e) => {
     e.preventDefault();
     firebase
       .signinUserWithEmailAndPassword(email, password)
       .then((response) => {
+        alert("Login Successfull !! Press 'OK' ")
         navigate("/home");
       })
       .catch((error) => {

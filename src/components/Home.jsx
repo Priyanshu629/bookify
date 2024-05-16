@@ -8,8 +8,18 @@ const Home = () => {
   const firebase = useFirebase();
   const navigate = useNavigate();
 
-  
-
+  const handleDelete = () => {
+    // console.log(currentuser);
+    firebase
+      .deleteAccount()
+      .then(() => {
+        console.log("User delete");
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const logOut = () => {
     firebase.logOut();
     navigate("/");
@@ -27,6 +37,7 @@ const Home = () => {
       <Button variant="danger" onClick={logOut}>
         Logout
       </Button>
+      <Button onClick={handleDelete}>Delete Account</Button>
     </div>
   );
 };
