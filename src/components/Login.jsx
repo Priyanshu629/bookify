@@ -83,10 +83,10 @@ const SignUp = () => {
           Login
         </Button>
       </Form>
-      <h5 className="mt-3 ">Or</h5>
+                {/*<h5 className="mt-3 ">Or</h5>
       <Button variant="white border border-dark" onClick={handelLoginWithGoogle}>
       <FcGoogle /> Login with google
-      </Button><br /><br />
+      </Button>*/}<br /><br />
 
        <span>Do not have an account? </span>
       <Link as={Link} to={'/signup'} variant="white border border-dark" >
