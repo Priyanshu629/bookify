@@ -10,7 +10,9 @@ import {
   onAuthStateChanged,
   signOut,
   deleteUser,
+  
 } from "firebase/auth";
+
 import toast from "react-hot-toast";
 
 const FirebaseContext = createContext(null);
@@ -27,6 +29,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 const firebaseAuth = getAuth(firebaseApp);
+
 const googleProvider = new GoogleAuthProvider();
 
 export const useFirebase = () => useContext(FirebaseContext);
@@ -34,18 +37,12 @@ export const useFirebase = () => useContext(FirebaseContext);
 export const FirebaseProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoggedin, setIsLoggedIn] = useState(false);
-  // const []
   
-
   const signupUserWithEmailAndPassword = (email, password) => {
-    
-
     return createUserWithEmailAndPassword(firebaseAuth, email, password);
   };
 
   const signinUserWithEmailAndPassword = (email, password) => {
-    
-      
     return signInWithEmailAndPassword(firebaseAuth, email, password);
   };
 
@@ -54,11 +51,10 @@ export const FirebaseProvider = ({ children }) => {
       if (user) {
         setUser(user);
         setIsLoggedIn(true);
-        
+       
       } else {
         setUser(null);
         setIsLoggedIn(false);
-        
       }
     });
   }, []);
@@ -69,7 +65,6 @@ export const FirebaseProvider = ({ children }) => {
     return signOut(firebaseAuth);
   };
   const deleteAccount = () => {
-    
     return deleteUser(firebaseAuth.currentUser);
   };
 
@@ -85,6 +80,7 @@ export const FirebaseProvider = ({ children }) => {
         isLoggedin,
         user,
         deleteAccount,
+        firebaseApp,
         
       }}
     >

@@ -2,8 +2,11 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useFirebase } from "../context/Firebase";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import { toast, Toaster } from "react-hot-toast";
+import { FcGoogle } from "react-icons/fc";
+
+
 
 const SignUp = () => {
   const firebase = useFirebase();
@@ -49,15 +52,18 @@ const SignUp = () => {
 
   return (
     <div className="container mt-3">
-      <h2 id="msg"></h2>
+      
       <Form onSubmit={handelLogin}>
-        <h1>Login</h1>
+        <h1 className="text-center">Login</h1>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
             type="email"
             placeholder="Enter email"
             onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            className="border border-black"
+            required
           />
         </Form.Group>
 
@@ -67,17 +73,25 @@ const SignUp = () => {
             type="password"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            className="border border-black"
+            required
           />
         </Form.Group>
 
         <Button variant="primary" type="submit">
-          {firebase.loading ? "Loading..." : "Login"}
+          Login
         </Button>
       </Form>
-      <h3 className="mt-3 ">Or</h3>
-      <Button variant="danger" onClick={handelLoginWithGoogle}>
-        Signin with google
-      </Button>
+      <h5 className="mt-3 ">Or</h5>
+      <Button variant="white border border-dark" onClick={handelLoginWithGoogle}>
+      <FcGoogle /> Login with google
+      </Button><br /><br />
+
+       <span>Do not have an account? </span>
+      <Link as={Link} to={'/signup'} variant="white border border-dark" >
+        Sign-Up
+      </Link>
       <Toaster />
     </div>
   );

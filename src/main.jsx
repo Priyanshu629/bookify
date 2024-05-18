@@ -6,6 +6,8 @@ import Home from './components/Home.jsx'
 import SignUp from './components/SignUp.jsx'
 import { FirebaseProvider } from './context/Firebase.jsx'
 import { createBrowserRouter,RouterProvider } from 'react-router-dom'
+import Profile from './components/Profile.jsx'
+import About from './components/About.jsx'
 
 
 const appRouter= createBrowserRouter([
@@ -24,6 +26,14 @@ const appRouter= createBrowserRouter([
       {
         path:"/signup",
         element:<SignUp/>
+      },
+      {
+        path:"/profile",
+        element:<Profile/>
+      },
+      {
+        path:"/about",
+        element:<About/>
       }
     ]
   },

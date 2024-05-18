@@ -2,7 +2,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useFirebase } from "../context/Firebase";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { updateProfile } from "firebase/auth";
 
@@ -11,19 +11,30 @@ const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  
   const navigate = useNavigate();
 
   const handelSubmit = (e) => {
-    setEmail("");
-    setPassword("");
+
     e.preventDefault();
+
+    if(password.length>=6){
+      
+      setEmail("");
+      setPassword("");
+      setName("")
+    }
+    
     firebase
       .signupUserWithEmailAndPassword(email, password)
       .then((response) => {
         const user = response.user;
-        updateProfile(user, { displayName: name })
+        updateProfile(user, {
+          displayName: name,
+        })
           .then((res) => {
-            navigate("/home");
+            console.log(res);
+            // navigate("/home");
           })
           .catch((error) => {
             return error;
@@ -40,9 +51,10 @@ const SignUp = () => {
     }
   }, [firebase.isLoggedin, navigate]);
   return (
-    <div>
-      <Form onSubmit={handelSubmit} className="container mt-3">
-        <h1>Sign Up</h1>
+    <div className="container mt-3 width-50">
+      <Form onSubmit={handelSubmit} >
+        <h1 className="text-center">Sign Up</h1>
+
         <Form.Group className="mb-3" controlId="formBasicText">
           <Form.Label>Full Name</Form.Label>
           <Form.Control
@@ -50,15 +62,19 @@ const SignUp = () => {
             placeholder="Enter Full Name"
             onChange={(e) => setName(e.target.value)}
             required
+            value={name}
+            className="border border-black"
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
             type="email"
-            placeholder="Enter email"
+            placeholder="Enter a valid email"
             onChange={(e) => setEmail(e.target.value)}
             required
+            value={email}
+            className="border border-black"
           />
         </Form.Group>
 
@@ -69,6 +85,8 @@ const SignUp = () => {
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
             required
+            value={password}
+            className="border border-black"
           />
         </Form.Group>
 
@@ -76,6 +94,10 @@ const SignUp = () => {
           Submit
         </Button>
       </Form>
+      <span>Already have an account? </span>
+      <Link as={Link} to={'/'} variant="white border border-dark" >
+        Login
+      </Link>
       <Toaster />
     </div>
   );
