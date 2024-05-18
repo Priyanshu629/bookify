@@ -47,7 +47,8 @@ const Profile = () => {
               photoURL: url,
             })
               .then((res) => {
-                window.location.reload();
+                alert('Photo updated successfully')
+                window.location.reload()
               })
               .catch((error) => {
                 console.log(error);
@@ -102,7 +103,7 @@ const Profile = () => {
         />
       </div>
       <span>Update image : </span>
-      <input type="file" onChange={(e) => setFile(e.target.files[0])} value={file}/>
+      <input type="file" onChange={(e) => setFile(e.target.files[0])} />
       <Button className="mt-2" variant="primary" onClick={uploadImage}>
         Update
       </Button>
